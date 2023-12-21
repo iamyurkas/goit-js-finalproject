@@ -18,6 +18,7 @@ gallery.insertAdjacentHTML("beforeend", galleryMarkup);
 new SimpleLightbox(".gallery__link", {
     captionsData: "alt",
     captions: true,
+    captionDelay: 250,
 });
 
 console.log(galleryItems);
