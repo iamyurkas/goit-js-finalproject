@@ -30,15 +30,21 @@ const onClickImage = (event) => {
     const imgSrc = event.target.dataset.source;
     const imgAlt = event.target.alt;
 
-    const instance = basicLightbox.create(`<img src="${imgSrc}" alt="${imgAlt}" width="800" height="600"/>`);
-    
-    instance.show();
-    
     const pressEsc = (event) => {
         if (event.code !== 'Escape') return;
         instance.close();
         document.removeEventListener('keydown', pressEsc);
     }
+
+    const instance = basicLightbox.create(
+        `<img src="${imgSrc}" alt="${imgAlt}" width="800" height="600"/>`,
+        {
+            onShow: () => window.addEventListener('keydown', pressEsc),
+            onClose: () => window.removeEventListener('keydown', pressEsc),
+        },
+  );
+    
+    instance.show();
 
     document.addEventListener('keydown', pressEsc);
 }
